@@ -20,8 +20,8 @@ export enum Periodo {
 }
 
 export enum Estado {
-  vivo = 'vivo',
-  muerto = 'muerto',
+  vivo = 1,
+  muerto = 0,
 }
 
 export enum Rol {
