@@ -11,13 +11,18 @@ import { PlazaComponent } from './plaza/plaza.component';
 import { ListaJugadoresComponent } from './lista-jugadores/lista-jugadores.component';
 import { MaterialAngularModule } from './material-angular.module';
 import { environment } from 'src/environments/environment';
+import { MessageComponent } from './message/message.component';
+import { FormsModule } from '@angular/forms';
+import {TimeAgoPipe} from 'time-ago-pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
     PlazaComponent,
-    ListaJugadoresComponent
+    ListaJugadoresComponent,
+    MessageComponent,
+    TimeAgoPipe
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,8 @@ import { environment } from 'src/environments/environment';
     BrowserAnimationsModule,
     MaterialAngularModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    FormsModule
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]

@@ -1,6 +1,36 @@
-<p>chat works!</p>
+<div class="chat-page">
+  <div class="chat-box"
+       #chatBox>
+    <app-message *ngFor="let message of messages | async"
+                 [message]="message"
+                 [playerId]="playerId"
+                 class="chat-message">
+    </app-message>
+  </div>
 
-<mat-list role="list">
-  <mat-list-item role="listitem">Chat Lobos</mat-list-item>
-  <mat-list-item role="listitem">Chat pueblo</mat-list-item>
-</mat-list>
+  <div class="chat-input">
+    <mat-form-field>
+      <mat-label>Message</mat-label>
+      <input matInput
+             class="chat-input-field"
+             [(ngModel)]="newMessage"
+             maxlength="256">
+      <mat-hint align="end">{{newMessage.length}} / 256</mat-hint>
+      <button mat-button
+              *ngIf="newMessage"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="newMessage=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-raised-button
+            color="primary"
+            (click)="sendMessage()"
+            [disabled]="!newMessage">
+      Send
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</div>
