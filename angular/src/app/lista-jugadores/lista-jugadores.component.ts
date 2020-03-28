@@ -16,7 +16,7 @@ export class ListaJugadoresComponent implements OnInit {
   constructor(private jugadoresService: JugadoresService) { }
 
   ngOnInit() {
-    this.jugadores = this.jugadoresService.getJugadores().pipe(
+    this.jugadores = this.jugadoresService.getLobos().pipe(
       tap((wat) => {console.log(wat)})
     );
   }
