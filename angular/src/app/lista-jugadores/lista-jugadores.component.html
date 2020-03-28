@@ -3,17 +3,21 @@
 <mat-list>
   <mat-list-item *ngFor="let jugador of jugadores | async">
     <img matListAvatar src="" alt="" />
-      <h3 matLine *ngIf="jugador.estado">
+      <h3 matLine *ngIf="!jugador.estado">
       	<del>{{jugador.nombre}}</del> 
       </h3>
       <h3 matLine *ngIf="jugador.estado">
       	{{jugador.nombre}}
       </h3>
     <p matLine>
-	  <button mat-button (click)="openInfo()">
-	    <mat-icon>info</mat-icon>
-	  </button>
-	  <mat-checkbox *ngIf="jugador.estado" (click)="OnVote(jugador.id)">Kill him?</mat-checkbox>
+         
     </p>
+    </mat-list-item>
+</mat-list>
+
+
+<mat-list>
+  <mat-list-item *ngFor="let voto of votacion_aldeanos | async">
+   {{voto.nominado.nombre}} - {{voto.votante.nombre}}
     </mat-list-item>
 </mat-list>

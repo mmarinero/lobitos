@@ -33,4 +33,8 @@ export class JugadoresService {
   getAldeanos() {
     return this.filterRol(this.getJugadores(), Rol.aldeano);
   }
+
+  OnVote(id){
+
+  }
 }
