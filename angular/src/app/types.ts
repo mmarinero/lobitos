@@ -1,8 +1,18 @@
+import { Timestamp } from 'rxjs';
+
 export interface Jugador {
   nombre: string;
   rol: Rol;
   estado: Estado;
   id: string;
+}
+
+export interface Message {
+  message: string;
+  timestamp: any;
+  playerId: string;
+  chatRoomId: string;
+  messageId: string
 }
 
 export interface Voto {
