@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Jugador, Rol, Estado } from '../types';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { map, tap, first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import 'firebase/firestore';
 
@@ -10,18 +10,20 @@ import 'firebase/firestore';
 })
 export class JugadoresService {
 
-  jugadores: AngularFirestoreCollection<Jugador>;
+  jugadoresCollection: AngularFirestoreCollection<Jugador>;
+  jugadores: Observable<Jugador[]>;
 
   constructor(private firestore: AngularFirestore) {
-    this.jugadores = this.firestore.collection<Jugador>('jugadores');
+    this.jugadoresCollection = this.firestore.collection<Jugador>('jugadores');
+    this.jugadores = this.jugadoresCollection.valueChanges({idField: 'id'});
   }
 
   getJugadores() {
-    return this.jugadores.valueChanges(['added', 'removed']);
+    return this.jugadores;
   }
 
   filterRol(jugadores: Observable<Jugador[]>, rol: Rol) {
-    return this.jugadores.valueChanges(['added', 'removed']).pipe(
+    return this.jugadores.pipe(
       map(jugadores => jugadores.filter(jugador => jugador.rol === rol))
     );
   }
@@ -32,6 +34,20 @@ export class JugadoresService {
 
   getAldeanos() {
     return this.filterRol(this.getJugadores(), Rol.aldeano);
+  }
+
+  kill(jugador: Jugador) {
+    console.log(jugador.id)
+    this.jugadoresCollection.doc(jugador.id).update({'estado': false});
+  }
+
+  resucitateAll() {
+    this.getJugadores().pipe(first()).subscribe(jugadores => {
+        jugadores.forEach(jugador => {
+          this.jugadoresCollection.doc(jugador.id).update({'estado': true});
+        });
+      }
+    );
   }
 
   OnVote(id){

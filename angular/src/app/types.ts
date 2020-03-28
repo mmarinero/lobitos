@@ -2,6 +2,7 @@ export interface Jugador {
   nombre: string;
   rol: Rol;
   estado: Estado;
+  id: string;
 }
 
 export interface Voto {
