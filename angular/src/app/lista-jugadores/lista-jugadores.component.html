@@ -1,1 +1,5 @@
 <p>lista-jugadores works!</p>
+
+<li *ngFor="let jugador of jugadores | async">
+  {{ jugador.nombre }}
+</li>

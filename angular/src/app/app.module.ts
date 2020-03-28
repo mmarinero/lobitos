@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +10,7 @@ import { ChatComponent } from './chat/chat.component';
 import { PlazaComponent } from './plaza/plaza.component';
 import { ListaJugadoresComponent } from './lista-jugadores/lista-jugadores.component';
 import { MaterialAngularModule } from './material-angular.module';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,9 +23,11 @@ import { MaterialAngularModule } from './material-angular.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialAngularModule
+    MaterialAngularModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
-  providers: [],
+  providers: [AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
