@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "lobitos-b1917": {
+      "hosting": {
+        "lobitos": [
+          "lobitos-b1917"
+        ]
+      }
+    }
+  }
+}
