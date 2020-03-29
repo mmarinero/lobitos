@@ -4,7 +4,7 @@ export interface Jugador {
   nombre: string;
   rol: Rol;
   estado: Estado;
-  id: string;
+  id?: string;
 }
 
 export interface Message {
@@ -12,17 +12,17 @@ export interface Message {
   timestamp: any;
   playerId: string;
   chatRoomId: string;
-  messageId: string
+  messageId: string;
 }
 
 export interface Voto {
-  nominado: Jugador,
-  votante: Jugador
+  nominado: string;
+  votante: string;
 }
 
 export interface Partida {
-  dia: number,
-  periodo: Periodo
+  dia: number;
+  periodo: Periodo;
 }
 
 export enum Periodo {
@@ -37,5 +37,5 @@ export enum Estado {
 
 export enum Rol {
   lobo = 'lobo',
-  aldeano = 'aledano',
+  aldeano = 'aldeano',
 }

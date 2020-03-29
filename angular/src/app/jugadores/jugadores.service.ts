@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Jugador, Rol, Estado } from '../types';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
-import { map, tap, first } from 'rxjs/operators';
+import { map, first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import 'firebase/firestore';
+
+import { PartidaService } from '../partida/partida.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,46 +13,59 @@ import 'firebase/firestore';
 export class JugadoresService {
 
   jugadoresCollection: AngularFirestoreCollection<Jugador>;
-  jugadores: Observable<Jugador[]>;
+  jugadores$: Observable<Jugador[]>;
 
-  constructor(private firestore: AngularFirestore) {
-    this.jugadoresCollection = this.firestore.collection<Jugador>('jugadores');
-    this.jugadores = this.jugadoresCollection.valueChanges({idField: 'id'});
+  constructor(
+    private firestore: AngularFirestore,
+    private partidaService: PartidaService
+    ) {
+    this.jugadoresCollection = this.partidaService.partidaDoc.collection<Jugador>('jugadores');
+    this.jugadores$ = this.jugadoresCollection.valueChanges({idField: 'id'});
+  }
+
+  addJugador(jugador: Jugador) {
+    // FIXME: Recuperar datos reales del usuario a partir del ID
+    const id = this.firestore.createId();
+    const jugadorData = {
+      ...jugador,
+      id,
+    };
+    this.jugadoresCollection.doc(id).set(jugadorData);
   }
 
   getJugadores() {
-    return this.jugadores;
+    return this.jugadores$;
   }
 
-  filterRol(jugadores: Observable<Jugador[]>, rol: Rol) {
-    return this.jugadores.pipe(
+  filterRol(rol: Rol) {
+    return this.jugadores$.pipe(
       map(jugadores => jugadores.filter(jugador => jugador.rol === rol))
     );
   }
 
   getLobos() {
-    return this.filterRol(this.getJugadores(), Rol.lobo);
+    return this.filterRol(Rol.lobo);
   }
 
   getAldeanos() {
-    return this.filterRol(this.getJugadores(), Rol.aldeano);
+    return this.filterRol(Rol.aldeano);
   }
 
-  kill(jugador: Jugador) {
-    console.log(jugador.id)
-    this.jugadoresCollection.doc(jugador.id).update({'estado': false});
+  kill(jugadorId) {
+    console.log(`matando a ${jugadorId}`);
+    this.jugadoresCollection.doc(jugadorId).update({estado: false});
   }
 
   resucitateAll() {
     this.getJugadores().pipe(first()).subscribe(jugadores => {
         jugadores.forEach(jugador => {
-          this.jugadoresCollection.doc(jugador.id).update({'estado': true});
+          this.jugadoresCollection.doc(jugador.id).update({estado: true});
         });
       }
     );
   }
 
-  OnVote(id){
+  OnVote(id) {
 
   }
 }
