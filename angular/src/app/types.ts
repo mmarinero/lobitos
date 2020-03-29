@@ -4,6 +4,7 @@ export interface Jugador {
   nombre: string;
   rol: Rol;
   estado: Estado;
+  uid: string;
   id: string;
 }
 

@@ -29,28 +29,42 @@ export class JugadoresService {
     this.usuarios$ = this.usuariosCollection.valueChanges();
   }
 
-  async addJugador(uid: string, rol: string) {
+  async getJugador(uid: string): Promise<Jugador> {
     const jugadores = await this.jugadoresCollection.ref.get();
-    const usuarios = await this.usuariosCollection.ref.get();
     let jugador = null;
     jugadores.forEach(jugadorRef => {
       let j = jugadorRef.data();
-      if(j.id === uid) jugador = j;
+      if(j.uid === uid) jugador = j;
     });
-    let usuario: User = null;
-    usuarios.forEach(userRef => {
-      let u = userRef.data() as User;
-      if(u.uid === uid) usuario = u
+    return jugador;
+  }
+
+  async getUsuario(uid: string): Promise<User> {
+    const usuarios = await this.usuariosCollection.ref.get();
+    let usuario = null;
+    usuarios.forEach(usuariosRef => {
+      let u = usuariosRef.data();
+      if(u.uid === uid) usuario = u;
     });
+    return usuario;
+  }
+
+
+  async addJugador(uid: string, rol: string) {
+    const jugador = await this.getJugador(uid);
+    const usuario = await this.getUsuario(uid);
     if (!jugador) {
       const id = this.firestore.createId();
       const jugadorData: Jugador = {
-        id: uid,
+        id: id,
+        uid: uid,
         rol: rol as Rol,
         estado: Estado.vivo,
         nombre: usuario.displayName
       };
       this.jugadoresCollection.doc(id).set(jugadorData);
+    } else {
+      this.jugadoresCollection.doc(jugador.id).update({estado: Estado.vivo, rol: rol})
     }
   }
 
