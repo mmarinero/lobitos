@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JugadoresService } from '../jugadores/jugadores.service';
 import { Observable } from 'rxjs';
 import { Jugador, Rol, Estado } from '../types';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-lista-jugadores',
@@ -10,21 +11,23 @@ import { Jugador, Rol, Estado } from '../types';
 })
 export class ListaJugadoresComponent implements OnInit {
 
-  jugadores: Observable<Jugador[]>;
+  usuarios$: Observable<User[]>;
 
   constructor(private jugadoresService: JugadoresService) { }
 
   ngOnInit() {
-    this.jugadores = this.jugadoresService.getJugadores();
+    this.usuarios$ = this.jugadoresService.getUsuarios();
   }
 
-  addJugador() {
-    // FIXME: Remplazar con el ID del jugador cuando tengamos autentificación
-    const jugador = {
-      nombre: 'Test',
-      rol: Rol.aldeano,
-      estado: Estado.vivo,
-    };
-    this.jugadoresService.addJugador(jugador);
+  getJugador(uid) {
+    return this.jugadoresService.getJugador(uid);
+  }
+
+  addJugador(uid: string, rol: string) {
+    this.jugadoresService.addJugador(uid, rol);
+  }
+
+  borrarJugador(uid: string) {
+    this.jugadoresService.borrarJugador(uid);
   }
 }

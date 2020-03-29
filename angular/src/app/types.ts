@@ -4,7 +4,8 @@ export interface Jugador {
   nombre: string;
   rol: Rol;
   estado: Estado;
-  id?: string;
+  uid: string;
+  id: string;
 }
 
 export interface Message {

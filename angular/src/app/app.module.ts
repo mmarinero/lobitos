@@ -21,6 +21,7 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
 import { LoginComponent } from './pages/login/login.component';
 import { AuthService } from './services/auth.service';
 import { PartidaComponent } from './partida/partida.component';
+import { ChatRoomsComponent } from './chat-rooms/chat-rooms.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { PartidaComponent } from './partida/partida.component';
     RegistrationComponent,
     VerifyEmailComponent,
     LoginComponent,
-    PartidaComponent
+    PartidaComponent,
+    ChatRoomsComponent
   ],
   imports: [
     BrowserModule,

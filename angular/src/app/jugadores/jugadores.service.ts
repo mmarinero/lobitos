@@ -6,35 +6,81 @@ import { Observable } from 'rxjs';
 import 'firebase/firestore';
 
 import { PartidaService } from '../partida/partida.service';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JugadoresService {
 
-  jugadoresCollection: AngularFirestoreCollection<Jugador>;
-  jugadores$: Observable<Jugador[]>;
+  private jugadoresCollection: AngularFirestoreCollection<Jugador>;
+  private jugadores$: Observable<Jugador[]>;
+
+  private usuariosCollection: AngularFirestoreCollection<User>;
+  private usuarios$: Observable<User[]>;
 
   constructor(
     private firestore: AngularFirestore,
     private partidaService: PartidaService
     ) {
     this.jugadoresCollection = this.partidaService.partidaDoc.collection<Jugador>('jugadores');
-    this.jugadores$ = this.jugadoresCollection.valueChanges({idField: 'id'});
+    this.jugadores$ = this.jugadoresCollection.valueChanges();
+    this.usuariosCollection = this.firestore.collection<User>('users');
+    this.usuarios$ = this.usuariosCollection.valueChanges();
   }
 
-  addJugador(jugador: Jugador) {
-    // FIXME: Recuperar datos reales del usuario a partir del ID
-    const id = this.firestore.createId();
-    const jugadorData = {
-      ...jugador,
-      id,
-    };
-    this.jugadoresCollection.doc(id).set(jugadorData);
+  async getJugador(uid: string): Promise<Jugador> {
+    const jugadores = await this.jugadoresCollection.ref.get();
+    let jugador = null;
+    jugadores.forEach(jugadorRef => {
+      let j = jugadorRef.data();
+      if(j.uid === uid) jugador = j;
+    });
+    return jugador;
+  }
+
+  async getUsuario(uid: string): Promise<User> {
+    const usuarios = await this.usuariosCollection.ref.get();
+    let usuario = null;
+    usuarios.forEach(usuariosRef => {
+      let u = usuariosRef.data();
+      if(u.uid === uid) usuario = u;
+    });
+    return usuario;
+  }
+
+
+  async addJugador(uid: string, rol: string) {
+    const jugador = await this.getJugador(uid);
+    const usuario = await this.getUsuario(uid);
+    if (!jugador) {
+      const id = this.firestore.createId();
+      const jugadorData: Jugador = {
+        id: id,
+        uid: uid,
+        rol: rol as Rol,
+        estado: Estado.vivo,
+        nombre: usuario.displayName
+      };
+      this.jugadoresCollection.doc(id).set(jugadorData);
+    } else {
+      this.jugadoresCollection.doc(jugador.id).update({estado: Estado.vivo, rol: rol})
+    }
+  }
+
+  async borrarJugador(uid: string) {
+    const jugador = await this.getJugador(uid);
+    if (jugador) {
+      this.jugadoresCollection.doc(jugador.id).delete()
+    }
   }
 
   getJugadores() {
     return this.jugadores$;
+  }
+
+  getUsuarios() {
+    return this.usuarios$
   }
 
   filterRol(rol: Rol) {

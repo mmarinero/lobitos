@@ -1,0 +1,24 @@
+<mat-accordion class="chats">
+  <mat-expansion-panel class="chat-room">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Foro del pueblo
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-chat></app-chat>
+
+  </mat-expansion-panel>
+  <mat-expansion-panel *ngIf="loboRole"
+                        class="chat-room"
+                       (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Clan de lobos
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-chat></app-chat>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-slide-toggle [(ngModel)]="loboRole">Soy lobo</mat-slide-toggle>

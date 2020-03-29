@@ -1,16 +1,17 @@
-<p>lista-jugadores works!</p>
 
 <button (click)="addJugador()">Add Jugador</button>
 
 <mat-list>
-  <mat-list-item *ngFor="let jugador of jugadores | async">
+  <mat-list-item *ngFor="let usuario of usuarios$ | async">
     <img matListAvatar src="" alt="" />
-      <h3 matLine *ngIf="!jugador.estado">
-      	<del>{{jugador.nombre}}</del>
+      <h3 matLine>
+      	{{usuario.displayName}}
       </h3>
-      <h3 matLine *ngIf="jugador.estado">
-      	{{jugador.nombre}}
-      </h3>
+      <h4>
+      </h4>
+      <button (click)="addJugador(usuario.uid, 'lobo')">Añadir lobo</button>
+      <button (click)="addJugador(usuario.uid, 'aldeano')">Añadir aldeano</button>
+      <button (click)="borrarJugador(usuario.uid)">Borrar</button>
     <p matLine>
 
     </p>
