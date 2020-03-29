@@ -30,6 +30,7 @@ export class VotacionAldeanosService {
   }
 
   addVotoLobo(voto: Voto) {
+    console.log('yo vote a kodos')
     this.votacionLobos.add(voto);
   }
 

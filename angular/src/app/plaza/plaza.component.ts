@@ -16,6 +16,7 @@ export class PlazaComponent implements OnInit {
   private aldeanos: Jugador[];
   private lobos: Jugador[];
   private hanVotado: string[] = [];
+  private hanVotadoLobos: string[] = [];
   public jugador: Jugador;
 
   constructor(
@@ -67,6 +68,39 @@ export class PlazaComponent implements OnInit {
         }
       }
     );
+
+    this.votacionAldeanosService.votosLobos$.subscribe(
+      votos => {
+        const cuentaVotos = {};
+        votos.forEach(
+          voto => {
+            this.hanVotadoLobos.push(voto.votante);
+            if (cuentaVotos[voto.nominado]) {
+              cuentaVotos[voto.nominado] += 1;
+            } else {
+              cuentaVotos[voto.nominado] = 1;
+            }
+          }
+        );
+        if (
+          this.partidaService.partidaData.periodo === 'noche' &&
+          votos.length === this.lobos.length
+          ) {
+            let maxVotos = 0;
+            let aMorir = null;
+            for (let [id, votos] of Object.entries(cuentaVotos)) {
+              if (votos > maxVotos) {
+                aMorir = id;
+                maxVotos = votos as number;
+              }
+            }
+            this.jugadoresService.kill(aMorir);
+            this.hanVotadoLobos = [];
+            this.votacionAldeanosService.limpiarVotosLobos();
+            this.partidaService.siguienteTurno();
+        }
+      }
+    );
   }
 
   siguienteTurno() {
@@ -75,7 +109,7 @@ export class PlazaComponent implements OnInit {
 
   addVoto(rol: string, nominado: string) {
     const votante = this.jugador.id;
-    if (!this.hanVotado.includes(votante)) {
+    if ((rol == 'aldeano' && !this.hanVotado.includes(votante)) || (rol == 'lobo' && !this.hanVotadoLobos.includes(votante))) {
       const voto = {votante, nominado};
       if (rol === Rol.aldeano) {
         this.votacionAldeanosService.addVotoAldeano(voto);

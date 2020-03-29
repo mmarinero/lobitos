@@ -6,10 +6,11 @@
       <mat-grid-tile-header>
         {{otro_jugador.nombre}}<span *ngIf = "!otro_jugador.estado"> - Muerto</span>
       </mat-grid-tile-header>
-            <input type="image" *ngIf="!otro_jugador.estado || (partida.periodo =='noche' && (otro_jugador.rol == 'aldeano' || jugador.rol == 'aldeano'))" src="../../assets/casas/casa-{{i + 1}}.png" alt="{{otro_jugador.nombre}}" height="100px" width="100px" onclick="alert('ese tio o está muerto o está durmiendo')"/>
+            <input type="image" *ngIf="!otro_jugador.estado || (partida.periodo =='noche' && (otro_jugador.rol == 'aldeano' || jugador.rol == 'aldeano'))" src="../../assets/casas/casa-{{i + 1}}.png" alt="{{otro_jugador.nombre}}" height="100px" width="100px" (click)="addVoto('lobo', otro_jugador.id)"/>
             <input type="image" *ngIf="otro_jugador.estado && partida.periodo == 'dia'" src="../../assets/casas/casa-{{i + 1}}-day.png" alt="{{otro_jugador.nombre}}" height="100px" width="100px" (click)="addVoto('aldeano', otro_jugador.id)"/>
-            <input type="image" *ngIf="otro_jugador.estado && (partida.periodo == 'noche' && otro_jugador.rol == 'lobo' && jugador.rol == 'lobo') " src="../../assets/casas/casa-{{i + 1}}-night.png" alt="{{otro_jugador.nombre}}" height="100px" width="100px" onclick="alert('No se puede votar de noche')"/>
+            <input type="image" *ngIf="otro_jugador.estado && (partida.periodo == 'noche' && otro_jugador.rol == 'lobo' && jugador.rol == 'lobo') " src="../../assets/casas/casa-{{i + 1}}-night.png" alt="{{otro_jugador.nombre}}" height="100px" width="100px" onclick="alert('Lobo no mata lobo')"/>
+
     </mat-grid-tile>
-  </mat-grid-list>  
+  </mat-grid-list>
 </ng-container>
 <button (click)="siguienteTurno()">siguiente turno</button>
