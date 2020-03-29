@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked, AfterViewInit, Input } from '@angular/core';
 import { Message } from '../types';
 import { Observable } from 'rxjs';
 import { ChatService } from './chat.service';
@@ -11,6 +11,8 @@ import { JugadoresService } from '../jugadores/jugadores.service';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
+
+  @Input() isLobo: boolean;
 
   @ViewChild('chatBox', {static: true}) chatBox: ElementRef;
 
