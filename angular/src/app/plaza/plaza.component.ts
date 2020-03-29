@@ -74,7 +74,6 @@ export class PlazaComponent implements OnInit {
   }
 
   addVoto(rol: string, nominado: string) {
-    // FIXME: Añadir ids de votante correcta
     const votante = this.jugador.id;
     if (!this.hanVotado.includes(votante)) {
       const voto = {votante, nominado};

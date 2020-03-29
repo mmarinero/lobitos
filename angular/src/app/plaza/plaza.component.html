@@ -5,13 +5,13 @@
 
 
 <mat-grid-list cols="3" rowHeight="100px" id="tablero">
-    <mat-grid-tile *ngFor="let jugador of jugadores; index as i">
+    <mat-grid-tile *ngFor="let otro_jugador of jugadores; index as i">
       <mat-grid-tile-header>
-        {{jugador.nombre}}
+        {{otro_jugador.nombre}}
       </mat-grid-tile-header>
-            <input type="image" *ngIf="!jugador.estado || (partida.periodo =='noche' && jugador.rol=='aldeano')" src="../../assets/casas/casa-{{i + 1}}.png" alt="{{jugador.nombre}}" height="100px" width="100px" onclick="alert('ese tio o está muerto o está durmiendo')"/>
-            <input type="image" *ngIf="jugador.estado && partida.periodo == 'dia'" src="../../assets/casas/casa-{{i + 1}}-day.png" alt="{{jugador.nombre}}" height="100px" width="100px" (click)="addVoto('aldeano', jugador.id)"/>
-            <input type="image" *ngIf="jugador.estado && partida.periodo == 'noche' && jugador.rol == 'lobo'" src="../../assets/casas/casa-{{i + 1}}-night.png" alt="{{jugador.nombre}}" height="100px" width="100px" onclick="alert('No se puede votar de noche')"/>
+            <input type="image" *ngIf="!otro_jugador.estado || (partida.periodo =='noche' && otro_jugador.rol=='aldeano')" src="../../assets/casas/casa-{{i + 1}}.png" alt="{{otro_jugador.nombre}}" height="100px" width="100px" onclick="alert('ese tio o está muerto o está durmiendo')"/>
+            <input type="image" *ngIf="otro_jugador.estado && partida.periodo == 'dia'" src="../../assets/casas/casa-{{i + 1}}-day.png" alt="{{otro_jugador.nombre}}" height="100px" width="100px" (click)="addVoto('aldeano', otro_jugador.id)"/>
+            <input type="image" *ngIf="otro_jugador.estado && partida.periodo == 'noche' && otro_jugador.rol == 'lobo'" src="../../assets/casas/casa-{{i + 1}}-night.png" alt="{{otro_jugador.nombre}}" height="100px" width="100px" onclick="alert('No se puede votar de noche')"/>
 
     </mat-grid-tile>
   </mat-grid-list>
