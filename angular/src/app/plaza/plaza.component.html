@@ -8,15 +8,15 @@
     <mat-list-item *ngFor="let jugador of jugadores">
       <img matListAvatar src="" alt="" />
         <h3 matLine *ngIf="!jugador.estado">
-            <del>{{jugador.nombre}}</del> 
+            <del>{{jugador.nombre}}</del>
         </h3>
         <h3 matLine *ngIf="jugador.estado">
             {{jugador.nombre}}
         </h3>
-        
-        <button (click)="addVoto('aldeano', jugador.id)">VOTA ALDEANO</button>
+
+        <button (click)="addVoto(Rol.aldeano, jugador.id)">VOTA ALDEANO</button>
       <p matLine>
-           
+
       </p>
       </mat-list-item>
   </mat-list>
