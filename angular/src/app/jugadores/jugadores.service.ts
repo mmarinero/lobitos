@@ -68,6 +68,13 @@ export class JugadoresService {
     }
   }
 
+  async borrarJugador(uid: string) {
+    const jugador = await this.getJugador(uid);
+    if (jugador) {
+      this.jugadoresCollection.doc(jugador.id).delete()
+    }
+  }
+
   getJugadores() {
     return this.jugadores$;
   }

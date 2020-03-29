@@ -7,8 +7,11 @@
       <h3 matLine>
       	{{usuario.displayName}}
       </h3>
+      <h4>
+      </h4>
       <button (click)="addJugador(usuario.uid, 'lobo')">Añadir lobo</button>
       <button (click)="addJugador(usuario.uid, 'aldeano')">Añadir aldeano</button>
+      <button (click)="borrarJugador(usuario.uid)">Borrar</button>
     <p matLine>
 
     </p>

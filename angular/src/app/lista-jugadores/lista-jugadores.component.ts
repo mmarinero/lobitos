@@ -19,7 +19,15 @@ export class ListaJugadoresComponent implements OnInit {
     this.usuarios$ = this.jugadoresService.getUsuarios();
   }
 
+  getJugador(uid) {
+    return this.jugadoresService.getJugador(uid);
+  }
+
   addJugador(uid: string, rol: string) {
     this.jugadoresService.addJugador(uid, rol);
+  }
+
+  borrarJugador(uid: string) {
+    this.jugadoresService.borrarJugador(uid);
   }
 }
