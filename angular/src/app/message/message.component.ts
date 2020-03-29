@@ -18,8 +18,7 @@ export class MessageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.messageDate =  new Date(this.message.timestamp.seconds * 1000).toLocaleString();
-    console.log(this.messageDate);
+    this.messageDate =  new Date(this.message.date).toLocaleString();
   }
 
 }

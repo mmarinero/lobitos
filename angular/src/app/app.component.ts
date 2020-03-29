@@ -16,7 +16,7 @@ export class AppComponent {
     private authService: AuthService,
     private router: Router
     ) {
-      console.error(this.authService.user)
+      console.error(this.authService.user);
     }
 
   goToLogin() {

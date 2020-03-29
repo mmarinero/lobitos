@@ -10,10 +10,8 @@ export interface Jugador {
 
 export interface Message {
   message: string;
-  timestamp: any;
-  playerId: string;
-  chatRoomId: string;
-  messageId: string;
+  date: number;
+  playerName: string;
 }
 
 export interface Voto {

@@ -6,12 +6,12 @@
   </div>
   <div class="message-content-div">
     <div class="valign-wrapper message-header">
-      <strong class="primary-font">{{message.playerId}}</strong>
+      <strong class="primary-font">{{message.playerName}}</strong>
       <small class="pull-right text-muted"><span class="material-icons alarm">alarm</span>{{messageDate | timeAgo}}</small>
     </div>
     <mat-divider></mat-divider>
     <p matLine>
-      {{message.message}}  
+      {{message.message}}
     </p>
   </div>
   <div *ngIf="index%2 == 1" class="avatar-div avatar-margin">

@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class PartidaService {
   private partidaID = 'x7aqxPUCZcE3ocFY6QnH'; // Cambiar esto por el buen ID de la partida
+  public user;
 
   partidaDoc: AngularFirestoreDocument<Partida>;
   partida$: Observable<Partida>;
@@ -23,6 +24,10 @@ export class PartidaService {
         this.partidaData = partida;
       }
     );
+  }
+
+  setUser(user) {
+    this.user = user;
   }
 
   siguienteTurno() {

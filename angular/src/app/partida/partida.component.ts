@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './../services/auth.service';
 import { Router } from '@angular/router';
+import { PartidaService } from './partida.service';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +15,16 @@ export class PartidaComponent {
 
   constructor(
     private authService: AuthService,
+    private partidaService: PartidaService,
     private router: Router
     ) {
-      console.error(this.authService.user)
+      console.error(this.authService.user);
+    }
+
+    ngOnInit() {
+      this.authService.user.subscribe(user => {
+        this.partidaService.setUser(user);
+      });
     }
 
   goToLogin() {

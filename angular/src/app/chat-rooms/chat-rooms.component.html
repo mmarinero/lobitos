@@ -1,16 +1,16 @@
-<mat-accordion class="chats">
+<mat-accordion class="chats" *ngIf="user">
   <mat-expansion-panel class="chat-room">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Foro del pueblo
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <app-chat
-    [isLobo]="false"></app-chat>
+    <app-chat [isLobo]="false"
+              [user]="user"></app-chat>
 
   </mat-expansion-panel>
   <mat-expansion-panel *ngIf="loboRol"
-                        class="chat-room chat-lobo"
+                       class="chat-room chat-lobo"
                        (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
     <mat-expansion-panel-header class="chat-lobo">
@@ -18,8 +18,8 @@
         Clan de lobos
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <app-chat
-    [isLobo]="true"></app-chat>
+    <app-chat [isLobo]="true"
+              [user]="user"></app-chat>
   </mat-expansion-panel>
 </mat-accordion>
 

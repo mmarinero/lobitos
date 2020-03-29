@@ -3,7 +3,8 @@ import { Message } from '../types';
 import { Observable } from 'rxjs';
 import { ChatService } from './chat.service';
 import { tap } from 'rxjs/operators';
-import { JugadoresService } from '../jugadores/jugadores.service';
+// import { JugadoresService } from '../jugadores/jugadores.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-chat',
@@ -14,13 +15,15 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
   @Input() isLobo: boolean;
 
-  @ViewChild('chatBox', {static: true}) chatBox: ElementRef;
+  @Input() user: any;
+
+  @ViewChild('chatBox', { static: true }) chatBox: ElementRef;
 
   newMessage = '';
   messages: Observable<Message[]>;
-  playerId = 'id';
 
-  constructor(private chatService: ChatService) { }
+  constructor(private chatService: ChatService) {
+  }
 
   ngOnInit() {
     this.getMessages();
@@ -35,18 +38,31 @@ export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
   }
 
   getMessages() {
-    this.messages = this.chatService.getMessages().pipe(
-      tap(() => this.scrollToBottom())
-    );
+    if (this.isLobo) {
+      this.messages = this.chatService.getWolfMessages().pipe(
+        tap(() => this.scrollToBottom())
+      );
+    } else {
+      this.messages = this.chatService.getHumanMessages().pipe(
+        tap(() => this.scrollToBottom())
+      );
+    }
   }
 
   sendMessage() {
     const myMessage = {
-      playerId: this.playerId,
+      playerName: this.user.nombre,
       message: this.newMessage,
-      timestamp: new Date()
+      date: new Date().getTime()
     } as Message;
-    this.chatService.sendMessage(myMessage);
+
+    if (this.isLobo) {
+      this.chatService.sendWolfMessage(myMessage);
+
+    } else {
+      this.chatService.sendHumanMessage(myMessage);
+
+    }
   }
 
   scrollToBottom(): void {

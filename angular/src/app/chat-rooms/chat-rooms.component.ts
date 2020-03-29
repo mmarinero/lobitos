@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { JugadoresService } from '../jugadores/jugadores.service';
 import { Rol } from '../types';
 
@@ -7,17 +7,16 @@ import { Rol } from '../types';
   templateUrl: './chat-rooms.component.html',
   styleUrls: ['./chat-rooms.component.scss']
 })
-export class ChatRoomsComponent implements OnInit {
+export class ChatRoomsComponent {
   panelOpenState = false;
   loboRol = false;
 
+  user: any;
+
   constructor(private jugadoresService: JugadoresService) {
     this.jugadoresService.getMiJugador$().subscribe(jugador => {
-      this.loboRol = jugador && jugador.rol === Rol.lobo
-    })
+      this.user = jugador;
+      this.loboRol = jugador && jugador.rol === Rol.lobo;
+    });
   }
-
-  ngOnInit() {
-  }
-
 }

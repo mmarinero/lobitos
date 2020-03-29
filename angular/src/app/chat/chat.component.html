@@ -1,10 +1,11 @@
 <div class="chat-page">
   <div class="chat-box"
+  *ngIf="user"
        #chatBox>
-       
+
     <app-message *ngFor="let message of messages | async; index as i"
                  [message]="message"
-                 [playerId]="playerId"
+                 [playerId]="user.nombre"
                  [index]="i"
                  [isLobo]="isLobo"
                  class="chat-message">

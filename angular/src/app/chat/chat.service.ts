@@ -2,20 +2,39 @@ import { Injectable } from '@angular/core';
 import { Message } from '../types';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
+import { PartidaService } from '../partida/partida.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
 
-  messages: AngularFirestoreCollection<Message>;
+  humanMessages: AngularFirestoreCollection<Message>;
+  wolfMessages: AngularFirestoreCollection<Message>;
 
-  constructor(private firestore: AngularFirestore) {
-    this.messages = this.firestore.collection<Message>('messages');
+  constructor(private partidaService: PartidaService,
+              private firestore: AngularFirestore) {
+    this.humanMessages = this.partidaService.partidaDoc.collection<Message>('chat_aldeanos');
+    this.wolfMessages = this.partidaService.partidaDoc.collection<Message>('chat_lobos');
   }
 
-  getMessages() {
-    return this.messages.snapshotChanges().pipe(
+  getHumanMessages() {
+    return this.humanMessages.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Message;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      }),
+      map(messages => {
+        return messages.sort(this.compareMessages);
+      })
+    );
+  }
+
+  getWolfMessages() {
+    return this.wolfMessages.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Message;
@@ -31,8 +50,8 @@ export class ChatService {
 
   compareMessages(a, b) {
 
-    const messageA = a.timestamp.seconds;
-    const messageB = b.timestamp.seconds;
+    const messageA = a.date;
+    const messageB = b.date;
 
     let comparison = 0;
     if (messageA > messageB) {
@@ -43,8 +62,13 @@ export class ChatService {
     return comparison;
   }
 
-  sendMessage(message: Message) {
+  sendHumanMessage(message: Message) {
     console.log(message);
-    this.messages.add(message);
+    this.humanMessages.add(message);
+  }
+
+  sendWolfMessage(message: Message) {
+    console.log(message);
+    this.wolfMessages.add(message);
   }
 }
