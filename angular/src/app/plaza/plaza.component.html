@@ -14,3 +14,13 @@
   </mat-grid-list>
 </ng-container>
 <button (click)="siguienteTurno()">siguiente turno</button>
+
+<div>
+  Censo del pueblo:
+  <mat-chip-list>
+    <mat-chip *ngFor="let jugador of jugadoresJugando">
+      {{jugador.nombre}}
+    </mat-chip>
+  </mat-chip-list>
+</div>
+

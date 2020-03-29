@@ -18,6 +18,7 @@ export class PlazaComponent implements OnInit {
   private hanVotado: string[] = [];
   private hanVotadoLobos: string[] = [];
   public jugador: Jugador;
+  public jugadoresJugando: Jugador[];
 
   constructor(
     private partidaService: PartidaService,
@@ -29,9 +30,10 @@ export class PlazaComponent implements OnInit {
     this.partida$ = this.partidaService.partida$;
     this.jugadoresService.getMiJugador$().subscribe(jugador => {
       this.jugador = jugador;
-    })
+    });
     this.jugadoresService.getJugadores().subscribe(jugadores => {
       this.jugadores = jugadores;
+      this.jugadoresJugando = jugadores.filter(jugador => jugador.estado);
       this.aldeanos = jugadores.filter(jugador => jugador.rol === 'aldeano');
       this.lobos = jugadores.filter(jugador => jugador.rol === 'lobo');
     });
