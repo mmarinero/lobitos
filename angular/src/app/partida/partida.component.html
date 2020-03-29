@@ -1,21 +1,22 @@
-<mat-tab-group>
-
-  <mat-tab label="Jugadores">
+<div class="flex-container">
+  <div class="app">
+    <h3>Chat</h3>
+    <app-chat>
+      <!-- Aqui lista de jugadores y nominaciones -->
+    </app-chat>
+  </div>
+  <mat-divider [vertical]="true"></mat-divider>
+  <div id="plaza" class="app">
+    <h3>Plaza</h3>
+    <app-plaza>
+      <!-- Aqui lista de jugadores y nominaciones -->
+    </app-plaza>
+  </div>
+  <mat-divider [vertical]="true"></mat-divider>
+  <div class="app">
+    <h3>Jugadores</h3>
     <app-lista-jugadores>
       <!-- Aqui lista de jugadores y nominaciones -->
     </app-lista-jugadores>
-  </mat-tab>
-
-  <mat-tab label="Chat">
-    <app-chat>
-      <!-- Aqui chats -->
-    </app-chat>
-  </mat-tab>
-
-  <mat-tab label="Plaza">
-    <app-plaza>
-      <!-- Aqui plaza con cartas y acciones -->
-    </app-plaza>
-  </mat-tab>
-
-</mat-tab-group>
+  </div>
+</div>
