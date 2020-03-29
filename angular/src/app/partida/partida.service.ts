@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Partida, Periodo } from '../types';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,9 @@ export class PartidaService {
   partida$: Observable<Partida>;
   partidaData: Partida;
 
-  constructor(private firestore: AngularFirestore) {
+  constructor(
+    private firestore: AngularFirestore,
+    ) {
     this.partidaDoc = this.firestore.doc<Partida>(`partida/${this.partidaID}`);
     this.partida$ = this.partidaDoc.valueChanges();
     this.partida$.subscribe(
@@ -30,7 +31,5 @@ export class PartidaService {
 
     this.partidaDoc.set({dia, periodo}, { merge: true });
   }
-
-
 
 }

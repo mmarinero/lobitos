@@ -13,14 +13,14 @@ import { PartidaService } from '../partida/partida.service';
 export class JugadoresService {
 
   jugadoresCollection: AngularFirestoreCollection<Jugador>;
-  jugadores: Observable<Jugador[]>;
+  jugadores$: Observable<Jugador[]>;
 
   constructor(
     private firestore: AngularFirestore,
     private partidaService: PartidaService
     ) {
     this.jugadoresCollection = this.partidaService.partidaDoc.collection<Jugador>('jugadores');
-    this.jugadores = this.jugadoresCollection.valueChanges({idField: 'id'});
+    this.jugadores$ = this.jugadoresCollection.valueChanges({idField: 'id'});
   }
 
   addJugador(jugador: Jugador) {
@@ -34,26 +34,26 @@ export class JugadoresService {
   }
 
   getJugadores() {
-    return this.jugadores;
+    return this.jugadores$;
   }
 
-  filterRol(jugadores: Observable<Jugador[]>, rol: Rol) {
-    return this.jugadores.pipe(
+  filterRol(rol: Rol) {
+    return this.jugadores$.pipe(
       map(jugadores => jugadores.filter(jugador => jugador.rol === rol))
     );
   }
 
   getLobos() {
-    return this.filterRol(this.getJugadores(), Rol.lobo);
+    return this.filterRol(Rol.lobo);
   }
 
   getAldeanos() {
-    return this.filterRol(this.getJugadores(), Rol.aldeano);
+    return this.filterRol(Rol.aldeano);
   }
 
-  kill(jugador: Jugador) {
-    console.log(jugador.id);
-    this.jugadoresCollection.doc(jugador.id).update({estado: false});
+  kill(jugadorId) {
+    console.log(`matando a ${jugadorId}`);
+    this.jugadoresCollection.doc(jugadorId).update({estado: false});
   }
 
   resucitateAll() {

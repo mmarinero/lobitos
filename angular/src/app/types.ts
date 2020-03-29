@@ -16,8 +16,8 @@ export interface Message {
 }
 
 export interface Voto {
-  nominado: Jugador;
-  votante: Jugador;
+  nominado: string;
+  votante: string;
 }
 
 export interface Partida {
@@ -37,5 +37,5 @@ export enum Estado {
 
 export enum Rol {
   lobo = 'lobo',
-  aldeano = 'aledano',
+  aldeano = 'aldeano',
 }

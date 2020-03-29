@@ -11,7 +11,7 @@ import { tap } from 'rxjs/operators';
 })
 export class ChatComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
-  @ViewChild('chatBox') chatBox: ElementRef;
+  @ViewChild('chatBox', {static: true}) chatBox: ElementRef;
 
   newMessage = '';
   messages: Observable<Message[]>;

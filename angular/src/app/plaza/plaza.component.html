@@ -2,5 +2,25 @@
     {{ partida.dia }}
     {{ partida.periodo }}
 
-    <button (click)="siguienteTurno()">siguiente turno</button>
 </ng-container>
+
+<mat-list>
+    <mat-list-item *ngFor="let jugador of jugadores">
+      <img matListAvatar src="" alt="" />
+        <h3 matLine *ngIf="!jugador.estado">
+            <del>{{jugador.nombre}}</del> 
+        </h3>
+        <h3 matLine *ngIf="jugador.estado">
+            {{jugador.nombre}}
+        </h3>
+        
+        <button (click)="addVoto('aldeano', jugador.id)">VOTA ALDEANO</button>
+      <p matLine>
+           
+      </p>
+      </mat-list-item>
+  </mat-list>
+
+
+<button (click)="addVoto('lobo')">VOTA LOBO</button>
+<button (click)="siguienteTurno()">siguiente turno</button>
