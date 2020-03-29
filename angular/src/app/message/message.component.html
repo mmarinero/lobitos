@@ -1,4 +1,4 @@
-<mat-card class="example-card">
+<!-- <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title>{{message.playerId}}</mat-card-title>
     <mat-card-subtitle>Date: {{messageDate | timeAgo}}</mat-card-subtitle>
@@ -6,8 +6,13 @@
   <mat-card-content>
     <span>{{message.message}}</span>
   </mat-card-content>
-  <!-- <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions> -->
-</mat-card>
+</mat-card> -->
+
+<mat-list-item>
+  <mat-icon mat-list-icon>user</mat-icon>
+  <div mat-line>
+    <span>{{message.playerId}}</span>
+    <span>{{messageDate | timeAgo}}</span>
+  </div>
+  <span mat-line>{{message.message}}</span>
+</mat-list-item>
