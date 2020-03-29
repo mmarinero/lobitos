@@ -1,19 +1,15 @@
 <ng-container *ngIf="partida$ | async as partida">
     {{ partida.dia }}
     {{ partida.periodo }}
-
-
-
-<mat-grid-list cols="3" rowHeight="100px" id="tablero">
+  <mat-grid-list cols="3" rowHeight="100px" id="tablero">
     <mat-grid-tile *ngFor="let otro_jugador of jugadores; index as i">
       <mat-grid-tile-header>
-        {{otro_jugador.nombre}}
+        {{otro_jugador.nombre}}<span *ngIf = "!otro_jugador.estado"> - Muerto</span>
       </mat-grid-tile-header>
             <input type="image" *ngIf="!otro_jugador.estado || (partida.periodo =='noche' && (otro_jugador.rol == 'aldeano' || jugador.rol == 'aldeano'))" src="../../assets/casas/casa-{{i + 1}}.png" alt="{{otro_jugador.nombre}}" height="100px" width="100px" onclick="alert('ese tio o está muerto o está durmiendo')"/>
             <input type="image" *ngIf="otro_jugador.estado && partida.periodo == 'dia'" src="../../assets/casas/casa-{{i + 1}}-day.png" alt="{{otro_jugador.nombre}}" height="100px" width="100px" (click)="addVoto('aldeano', otro_jugador.id)"/>
             <input type="image" *ngIf="otro_jugador.estado && (partida.periodo == 'noche' && otro_jugador.rol == 'lobo' && jugador.rol == 'lobo') " src="../../assets/casas/casa-{{i + 1}}-night.png" alt="{{otro_jugador.nombre}}" height="100px" width="100px" onclick="alert('No se puede votar de noche')"/>
-
     </mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list>  
 </ng-container>
 <button (click)="siguienteTurno()">siguiente turno</button>
