@@ -9,9 +9,9 @@
       <mat-grid-tile-header>
         {{jugador.nombre}}
       </mat-grid-tile-header>
-            <input type="image" *ngIf="!jugador.estado" src="../../assets/casas/casa-{{i + 1}}.png" alt="{{jugador.nombre}}" height="100px" width="100px"/>
+            <input type="image" *ngIf="!jugador.estado || (partida.periodo =='noche' && jugador.rol=='aldeano')" src="../../assets/casas/casa-{{i + 1}}.png" alt="{{jugador.nombre}}" height="100px" width="100px"/>
             <input type="image" *ngIf="jugador.estado && partida.periodo == 'dia'" src="../../assets/casas/casa-{{i + 1}}-day.png" alt="{{jugador.nombre}}" height="100px" width="100px" (click)="addVoto('aldeano', jugador.id)"/>
-            <input type="image" *ngIf="jugador.estado && partida.periodo == 'noche'" src="../../assets/casas/casa-{{i + 1}}-night.png" alt="{{jugador.nombre}}" height="100px" width="100px" (click)="addVoto('aldeano', jugador.id)"/>
+            <input type="image" *ngIf="jugador.estado && partida.periodo == 'noche' && jugador.rol == 'lobo'" src="../../assets/casas/casa-{{i + 1}}-night.png" alt="{{jugador.nombre}}" height="100px" width="100px" (click)="addVoto('aldeano', jugador.id)"/>
 
     </mat-grid-tile>
   </mat-grid-list>
