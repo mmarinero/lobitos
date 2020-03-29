@@ -11,8 +11,8 @@ import { JugadoresService } from '../jugadores/jugadores.service';
   styleUrls: ['./plaza.component.scss']
 })
 export class PlazaComponent implements OnInit {
-  private partida$: Observable<Partida>;
-  private jugadores: Jugador[];
+  public partida$: Observable<Partida>;
+  public jugadores: Jugador[];
   private aldeanos: Jugador[];
   private lobos: Jugador[];
   private hanVotado: string[] = [];
@@ -65,7 +65,7 @@ export class PlazaComponent implements OnInit {
     this.partidaService.siguienteTurno();
   }
 
-  addVoto(rol: Rol, nominado: string) {
+  addVoto(rol: string, nominado: string) {
     // FIXME: Añadir ids de votante correcta
     const votante = 'XXX1';
     if (!this.hanVotado.includes(votante)) {
