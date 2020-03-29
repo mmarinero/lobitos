@@ -12,22 +12,17 @@ export interface Message {
   timestamp: any;
   playerId: string;
   chatRoomId: string;
-  messageId: string
+  messageId: string;
 }
 
 export interface Voto {
-  nominado: Jugador,
-  votante: Jugador
+  nominado: Jugador;
+  votante: Jugador;
 }
 
 export interface Partida {
-  dia: number,
-  periodo: Periodo
-}
-
-export enum Periodo {
-  dia = 'dia',
-  noche = 'noche',
+  dia: number;
+  periodo: 'dia' | 'noche';
 }
 
 export enum Estado {

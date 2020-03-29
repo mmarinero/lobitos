@@ -28,10 +28,10 @@ export class ListaJugadoresComponent implements OnInit {
       jugadores.forEach(jugador => {
         this.votacion_aldeanos.forEach(votacion_aldeanos => {
           votacion_aldeanos.forEach(votacion_aldeano => {
-            console.log(votacion_aldeano.nominado);
+            // console.log('votacion', votacion_aldeano.nominado);
           });
         });
-        console.log(jugador);
+        // console.log('jugador', jugador);
       });
     });
   }

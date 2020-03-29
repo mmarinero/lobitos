@@ -1,1 +1,6 @@
-<p>plaza works!</p>
+<ng-container *ngIf="partida$ | async as partida">
+    {{ partida.dia }}
+    {{ partida.periodo }}
+
+    <button (click)="siguienteTurno()">siguiente turno</button>
+</ng-container>

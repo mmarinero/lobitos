@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PartidaService } from '../partida/partida.service';
+import { Observable } from 'rxjs';
+import { Partida } from '../types';
 
 @Component({
   selector: 'app-plaza',
@@ -6,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./plaza.component.scss']
 })
 export class PlazaComponent implements OnInit {
+  partida$: Observable<Partida>;
 
-  constructor() { }
+  constructor(private partidaService: PartidaService) { }
 
   ngOnInit() {
+    this.partida$ = this.partidaService.partida$;
+  }
+
+  siguienteTurno() {
+    this.partidaService.siguienteTurno();
   }
 
 }
