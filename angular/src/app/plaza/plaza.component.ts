@@ -16,6 +16,7 @@ export class PlazaComponent implements OnInit {
   private aldeanos: Jugador[];
   private lobos: Jugador[];
   private hanVotado: string[] = [];
+  private jugador: Jugador;
 
   constructor(
     private partidaService: PartidaService,
@@ -25,7 +26,9 @@ export class PlazaComponent implements OnInit {
 
   ngOnInit() {
     this.partida$ = this.partidaService.partida$;
-
+    this.jugadoresService.getMiJugador$().subscribe(jugador => {
+      this.jugador = jugador;
+    })
     this.jugadoresService.getJugadores().subscribe(jugadores => {
       this.jugadores = jugadores;
       this.aldeanos = jugadores.filter(jugador => jugador.rol === 'aldeano');
@@ -49,13 +52,18 @@ export class PlazaComponent implements OnInit {
           this.partidaService.partidaData.periodo === 'dia' &&
           votos.length === this.jugadores.length
           ) {
-            console.log('todos votan');
-            console.log(cuentaVotos);
-          // Todos los aldeanos han votado
-          // FIXME: Ver quien tiene más votos, matarle, borar los votos y pasar de turno
-          // this.jugadoresService.kill(id);
-          // this.votacionAldeanosService.limpiarVotosAldeanos();
-          // this.partidaService.siguienteTurno();
+            let maxVotos = 0;
+            let aMorir = null;
+            for (let [id, votos] of Object.entries(cuentaVotos)) {
+              if (votos > maxVotos) {
+                aMorir = id;
+                maxVotos = votos as number;
+              }
+            }
+            this.jugadoresService.kill(aMorir);
+            this.hanVotado = [];
+            this.votacionAldeanosService.limpiarVotosAldeanos();
+            this.partidaService.siguienteTurno();
         }
       }
     );
@@ -67,7 +75,7 @@ export class PlazaComponent implements OnInit {
 
   addVoto(rol: string, nominado: string) {
     // FIXME: Añadir ids de votante correcta
-    const votante = 'XXX1';
+    const votante = this.jugador.id;
     if (!this.hanVotado.includes(votante)) {
       const voto = {votante, nominado};
       if (rol === Rol.aldeano) {
