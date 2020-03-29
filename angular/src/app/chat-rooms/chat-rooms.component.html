@@ -8,7 +8,7 @@
     <app-chat></app-chat>
 
   </mat-expansion-panel>
-  <mat-expansion-panel *ngIf="loboRole"
+  <mat-expansion-panel *ngIf="loboRol"
                         class="chat-room"
                        (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
@@ -21,4 +21,4 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-<mat-slide-toggle [(ngModel)]="loboRole">Soy lobo</mat-slide-toggle>
+<!--mat-slide-toggle [(ngModel)]="loboRole">Soy lobo</mat-slide-toggle-->

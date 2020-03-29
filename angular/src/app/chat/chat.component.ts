@@ -3,6 +3,7 @@ import { Message } from '../types';
 import { Observable } from 'rxjs';
 import { ChatService } from './chat.service';
 import { tap } from 'rxjs/operators';
+import { JugadoresService } from '../jugadores/jugadores.service';
 
 @Component({
   selector: 'app-chat',

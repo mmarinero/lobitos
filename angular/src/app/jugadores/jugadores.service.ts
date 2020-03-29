@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Jugador, Rol, Estado } from '../types';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { map, first } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import 'firebase/firestore';
 
 import { PartidaService } from '../partida/partida.service';
 import { User } from '../models/user.model';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class JugadoresService {
 
   constructor(
     private firestore: AngularFirestore,
-    private partidaService: PartidaService
+    private partidaService: PartidaService,
+    private authService: AuthService
     ) {
     this.jugadoresCollection = this.partidaService.partidaDoc.collection<Jugador>('jugadores');
     this.jugadores$ = this.jugadoresCollection.valueChanges();
@@ -37,6 +39,18 @@ export class JugadoresService {
       if(j.uid === uid) jugador = j;
     });
     return jugador;
+  }
+
+  getMiJugador$(): Observable<Jugador> {
+    return combineLatest(this.authService.user, this.jugadores$, (user, jugadores) => {
+      let jugador = null;
+      jugadores.forEach(j => {
+        if(j.uid === user.uid) {
+          jugador = j;
+        }
+      });
+      return jugador;
+    });
   }
 
   async getUsuario(uid: string): Promise<User> {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { JugadoresService } from '../jugadores/jugadores.service';
+import { Rol } from '../types';
 
 @Component({
   selector: 'app-chat-rooms',
@@ -9,7 +11,12 @@ export class ChatRoomsComponent implements OnInit {
   panelOpenState = false;
   loboRol = false;
 
-  constructor() { }
+  constructor(private jugadoresService: JugadoresService) {
+    this.jugadoresService.getMiJugador$().subscribe(jugador => {
+      this.loboRol = jugador && jugador.rol === Rol.lobo
+      console.log(this.loboRol)
+    })
+  }
 
   ngOnInit() {
   }
