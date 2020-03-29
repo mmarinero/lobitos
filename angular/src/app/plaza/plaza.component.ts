@@ -26,7 +26,7 @@ export class PlazaComponent implements OnInit {
   ngOnInit() {
     this.partida$ = this.partidaService.partida$;
 
-    this.jugadoresService.jugadores$.subscribe(jugadores => {
+    this.jugadoresService.getJugadores().subscribe(jugadores => {
       this.jugadores = jugadores;
       this.aldeanos = jugadores.filter(jugador => jugador.rol === 'aldeano');
       this.lobos = jugadores.filter(jugador => jugador.rol === 'lobo');
