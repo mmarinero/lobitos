@@ -14,7 +14,6 @@ export class ChatRoomsComponent implements OnInit {
   constructor(private jugadoresService: JugadoresService) {
     this.jugadoresService.getMiJugador$().subscribe(jugador => {
       this.loboRol = jugador && jugador.rol === Rol.lobo
-      console.log(this.loboRol)
     })
   }
 
