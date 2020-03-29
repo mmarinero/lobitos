@@ -1,15 +1,19 @@
-<form>    
-    <label>Email</label>
-    <input type="text" #email required>
 
-    <label>Password</label>
-    <input type="password" #password required>
+<form>
+    <mat-form-field>
+      <input matInput placeholder="Email" type="text" #email required>
+    </mat-form-field>
 
-    <button type="submit" (click)="logIn(email, password)">Login</button>
+    <mat-form-field>
+      <input matInput placeholder="Password"  type="password" #password required>
+    </mat-form-field>
 
-    <button type="submit" (click)="recoverPassword(email)">Forgot password?</button>
+    <button type="submit" mat-raised-button (click)="logIn(email, password)">Login</button>
 
-    <button type="submit" color="danger" (click)="logInGoogle()">
+    <button type="submit" mat-raised-button (click)="recoverPassword(email)">Forgot password?</button>
+
+    <button type="submit" mat-raised-button color="danger" (click)="logInGoogle()">
         Login with Google
     </button>
 </form>
+

@@ -20,6 +20,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthService } from './services/auth.service';
+import { PartidaComponent } from './partida/partida.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AuthService } from './services/auth.service';
     RegistrationComponent,
     VerifyEmailComponent,
     LoginComponent,
+    PartidaComponent
   ],
   imports: [
     BrowserModule,
