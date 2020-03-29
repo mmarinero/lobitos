@@ -2,17 +2,18 @@
     {{ partida.dia }}
     {{ partida.periodo }}
 
-</ng-container>
 
-<mat-grid-list cols="4" rowHeight="100px" id="tablero">
+
+<mat-grid-list cols="3" rowHeight="100px" id="tablero">
     <mat-grid-tile *ngFor="let jugador of jugadores; index as i">
-        <input type="image" *ngIf="!jugador.estado"  src="../../assets/casas/casa-{{i + 1}}.png" alt="{{jugador.nombre}}"/>
-        <input type="image" *ngIf="jugador.estado" src="../../assets/casas/casa-{{i + 1}}-day.png" alt="{{jugador.nombre}}" (click)="addVoto('aldeano', jugador.id)"/>
+      <mat-grid-tile-header>
+        {{jugador.nombre}}
+      </mat-grid-tile-header>
+            <input type="image" *ngIf="!jugador.estado" src="../../assets/casas/casa-{{i + 1}}.png" alt="{{jugador.nombre}}" height="100px" width="100px"/>
+            <input type="image" *ngIf="jugador.estado && partida.periodo == 'dia'" src="../../assets/casas/casa-{{i + 1}}-day.png" alt="{{jugador.nombre}}" height="100px" width="100px" (click)="addVoto('aldeano', jugador.id)"/>
+            <input type="image" *ngIf="jugador.estado && partida.periodo == 'noche'" src="../../assets/casas/casa-{{i + 1}}-night.png" alt="{{jugador.nombre}}" height="100px" width="100px" (click)="addVoto('aldeano', jugador.id)"/>
 
-        <!--<button (click)="addVoto('aldeano', jugador.id)">VOTA {{i+1}}</button>-->
     </mat-grid-tile>
   </mat-grid-list>
-
-
-<!--button (click)="addVoto('lobo', jugador.id)">VOTA LOBO</button-->
+</ng-container>
 <button (click)="siguienteTurno()">siguiente turno</button>
