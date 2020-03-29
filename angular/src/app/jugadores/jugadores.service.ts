@@ -125,6 +125,15 @@ export class JugadoresService {
     );
   }
 
+  deleteAll() {
+    this.getJugadores().pipe(first()).subscribe(jugadores => {
+        jugadores.forEach(jugador => {
+          this.jugadoresCollection.doc(jugador.id).delete();
+        });
+      }
+    );
+  }
+
   OnVote(id) {
 
   }
