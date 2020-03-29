@@ -14,6 +14,12 @@ import { environment } from 'src/environments/environment';
 import { MessageComponent } from './message/message.component';
 import { FormsModule } from '@angular/forms';
 import {TimeAgoPipe} from 'time-ago-pipe';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AuthGuardService } from 'src/app/services/auth-guard.service';
+import { RegistrationComponent } from './pages/registration/registration.component';
+import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +28,10 @@ import {TimeAgoPipe} from 'time-ago-pipe';
     PlazaComponent,
     ListaJugadoresComponent,
     MessageComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    RegistrationComponent,
+    VerifyEmailComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +40,10 @@ import {TimeAgoPipe} from 'time-ago-pipe';
     MaterialAngularModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    FormsModule
+    FormsModule,
+    AngularFireAuthModule,
   ],
-  providers: [AngularFirestore],
+  providers: [AngularFirestore, AuthGuardService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
