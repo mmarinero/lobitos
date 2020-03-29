@@ -1,7 +1,14 @@
 <mat-toolbar>
   {{title}}
 </mat-toolbar>
-
+<div *ngIf="!(user | async)">
+  <button type="button" (click)="goToLogin()">Log in</button>
+</div>
+<div *ngIf="user | async">
+  Hello {{ (user | async)?.email }}
+  <button type="button" (click)="logOut()">Log out</button>
+</div>
+<router-outlet></router-outlet>
 <mat-tab-group>
 
   <mat-tab label="Jugadores">
@@ -9,7 +16,7 @@
       <!-- Aqui lista de jugadores y nominaciones -->
     </app-lista-jugadores>
   </mat-tab>
-  
+
   <mat-tab label="Chat">
     <app-chat>
       <!-- Aqui chats -->
