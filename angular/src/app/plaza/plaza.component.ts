@@ -16,7 +16,7 @@ export class PlazaComponent implements OnInit {
   private aldeanos: Jugador[];
   private lobos: Jugador[];
   private hanVotado: string[] = [];
-  private jugador: Jugador;
+  public jugador: Jugador;
 
   constructor(
     private partidaService: PartidaService,
