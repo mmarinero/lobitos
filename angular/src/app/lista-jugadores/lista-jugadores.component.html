@@ -1,5 +1,7 @@
 <p>lista-jugadores works!</p>
 
+<button (click)="addJugador()">Add Jugador</button>
+
 <mat-list>
   <mat-list-item *ngFor="let jugador of jugadores | async">
     <img matListAvatar src="" alt="" />

@@ -4,7 +4,7 @@ export interface Jugador {
   nombre: string;
   rol: Rol;
   estado: Estado;
-  id: string;
+  id?: string;
 }
 
 export interface Message {
@@ -22,7 +22,12 @@ export interface Voto {
 
 export interface Partida {
   dia: number;
-  periodo: 'dia' | 'noche';
+  periodo: Periodo;
+}
+
+export enum Periodo {
+  dia = 'dia',
+  noche = 'noche',
 }
 
 export enum Estado {

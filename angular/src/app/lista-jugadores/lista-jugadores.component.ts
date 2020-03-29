@@ -3,7 +3,7 @@ import { JugadoresService } from '../jugadores/jugadores.service';
 import { VotacionAldeanosService } from '../votacion/votacion.service';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import { Jugador } from '../types';
+import { Jugador, Rol, Estado } from '../types';
 import { Voto } from '../types';
 
 @Component({
@@ -34,5 +34,15 @@ export class ListaJugadoresComponent implements OnInit {
         // console.log('jugador', jugador);
       });
     });
+  }
+
+  addJugador() {
+    // FIXME: Remplazar con el ID del jugador cuando tengamos autentificación
+    const jugador = {
+      nombre: 'Test',
+      rol: Rol.aldeano,
+      estado: Estado.vivo,
+    };
+    this.jugadoresService.addJugador(jugador);
   }
 }
