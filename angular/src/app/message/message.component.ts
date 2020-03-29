@@ -10,6 +10,7 @@ export class MessageComponent implements OnInit {
 
   @Input() message: Message;
   @Input() playerId: string;
+  @Input() index: number;
 
   messageDate: string;
 

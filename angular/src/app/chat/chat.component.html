@@ -1,9 +1,11 @@
 <div class="chat-page">
   <div class="chat-box"
        #chatBox>
-    <app-message *ngFor="let message of messages | async"
+       
+    <app-message *ngFor="let message of messages | async; index as i"
                  [message]="message"
                  [playerId]="playerId"
+                 [index]="i"
                  class="chat-message">
     </app-message>
   </div>

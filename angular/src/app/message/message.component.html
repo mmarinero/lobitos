@@ -1,18 +1,18 @@
-<!-- <mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title>{{message.playerId}}</mat-card-title>
-    <mat-card-subtitle>Date: {{messageDate | timeAgo}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <span>{{message.message}}</span>
-  </mat-card-content>
-</mat-card> -->
-
-<mat-list-item>
-  <mat-icon mat-list-icon>user</mat-icon>
-  <div mat-line>
-    <span>{{message.playerId}}</span>
-    <span>{{messageDate | timeAgo}}</span>
+<div class="message">
+  <div *ngIf="index%2 == 0" class="avatar-div">
+    <img class="avatar" matListAvatar src="../../assets/avatars/villager-icon.jpg" alt="Villager">
   </div>
-  <span mat-line>{{message.message}}</span>
-</mat-list-item>
+  <div class="message-content-div">
+    <div class="valign-wrapper message-header">
+      <strong class="primary-font">{{message.playerId}}</strong>
+      <small class="pull-right text-muted"><span class="material-icons alarm">alarm</span>{{messageDate | timeAgo}}</small>
+    </div>
+    <mat-divider></mat-divider>
+    <p matLine>
+      {{message.message}}  
+    </p>
+  </div>
+  <div *ngIf="index%2 == 1" class="avatar-div avatar-margin">
+    <img class="avatar" matListAvatar src="../../assets/avatars/villager-icon.jpg" alt="Villager">
+  </div>
+</div>
