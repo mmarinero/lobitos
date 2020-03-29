@@ -1,6 +1,8 @@
 <div class="message">
   <div *ngIf="index%2 == 0" class="avatar-div">
-    <img class="avatar" matListAvatar src="../../assets/avatars/villager-icon.jpg" alt="Villager">
+    <img *ngIf="!isLobo" class="avatar" matListAvatar src="../../assets/avatars/villager-icon.jpg" alt="Villager">
+    <img *ngIf="isLobo" class="avatar" matListAvatar src="../../assets/avatars/wolf-icon.jpg" alt="Wolf">
+
   </div>
   <div class="message-content-div">
     <div class="valign-wrapper message-header">
@@ -13,6 +15,7 @@
     </p>
   </div>
   <div *ngIf="index%2 == 1" class="avatar-div avatar-margin">
-    <img class="avatar" matListAvatar src="../../assets/avatars/villager-icon.jpg" alt="Villager">
+    <img *ngIf="!isLobo" class="avatar" matListAvatar src="../../assets/avatars/villager-icon.jpg" alt="Villager">
+    <img *ngIf="isLobo" class="avatar" matListAvatar src="../../assets/avatars/wolf-icon.jpg" alt="Wolf">
   </div>
 </div>

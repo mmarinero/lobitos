@@ -5,20 +5,22 @@
         Foro del pueblo
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <app-chat></app-chat>
+    <app-chat
+    [isLobo]="false"></app-chat>
 
   </mat-expansion-panel>
-  <mat-expansion-panel *ngIf="loboRol"
-                        class="chat-room"
+  <mat-expansion-panel *ngIf="loboRole"
+                        class="chat-room chat-lobo"
                        (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
+    <mat-expansion-panel-header class="chat-lobo">
       <mat-panel-title>
         Clan de lobos
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <app-chat></app-chat>
+    <app-chat
+    [isLobo]="true"></app-chat>
   </mat-expansion-panel>
 </mat-accordion>
 
-<!--mat-slide-toggle [(ngModel)]="loboRole">Soy lobo</mat-slide-toggle-->
+<mat-slide-toggle [(ngModel)]="loboRole">Soy lobo</mat-slide-toggle>
